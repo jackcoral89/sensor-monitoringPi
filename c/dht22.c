@@ -12,7 +12,8 @@ int data[5] = {0, 0, 0, 0, 0};
 void read_dht_data()
 {
 	uint8_t laststate = HIGH;
-	uint8_t counter = 0, j = 0;
+	uint8_t counter = 0;
+	uint8_t j = 0;
 	int i;
 
 	// Inizializza array dati
