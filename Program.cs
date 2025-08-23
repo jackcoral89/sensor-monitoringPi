@@ -1,27 +1,26 @@
-﻿using System.Device.Gpio;
-using System.Device.I2c;
+﻿using System.Device.I2c;
 using Iot.Device.Bmxx80;
-using Iot.Device.GrovePiDevice;
-using Iot.Device.GrovePiDevice.Models;
-using Iot.Device.GrovePiDevice.Sensors;
-using UnitsNet;
+using Iot.Device.Bmxx80.ReadResult;
 
 class Program
 {
-	static void Main()
+	static async Task Main()
 	{
-		Console.WriteLine("Hello!");
-		// const int busId = 1;
-		// var i2cSettings = new I2cConnectionSettings(busId, Bme280.DefaultI2cAddress);
-		// using I2cDevice i2cDevice = I2cDevice.Create(i2cSettings);
-		// using var bme80 = new Bme280(i2cDevice)
-		// {
-		// 	// set higher sampling
-		// 	TemperatureSampling = Sampling.LowPower,
-		// 	PressureSampling = Sampling.UltraHighResolution,
-		// 	HumiditySampling = Sampling.Standard,
+		const int busId = 1;
+		var i2cSettings = new I2cConnectionSettings(busId, Bme680.DefaultI2cAddress);
+		using I2cDevice i2cDevice = I2cDevice.Create(i2cSettings);
+		using var bme = new Bme680(i2cDevice);
 
-		// };
+		while (true)
+		{
+			Bme680ReadResult results = await bme.ReadAsync();
+
+			Console.WriteLine($"Temp: {results.Temperature}");
+			Console.WriteLine($"Hum: {results.Humidity}");
+			Console.WriteLine($"Press: {results.Pressure}");
+			Console.WriteLine($"Gas: {results.GasResistance}");
+			Thread.Sleep(2000);
+		}
 
 	}
 }
