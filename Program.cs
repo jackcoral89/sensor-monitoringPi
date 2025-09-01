@@ -15,10 +15,8 @@ class Program
 		{
 			Bme680ReadResult results = await bme.ReadAsync();
 
-			Console.WriteLine($"Temp: {results.Temperature}");
-			Console.WriteLine($"Hum: {results.Humidity}");
-			Console.WriteLine($"Press: {results.Pressure}");
-			Console.WriteLine($"Gas: {results.GasResistance}");
+			Console.WriteLine($"Temp: {results.Temperature}; Hum: {results.Humidity}; Press: {results.Pressure}; Gas: {results.GasResistance}");
+			Console.WriteLine($"---------------------------------");
 			Thread.Sleep(2000);
 		}
 
